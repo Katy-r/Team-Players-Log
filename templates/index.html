@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container my-5">
+    <h2>Add player</h2>
+    <form action="/" method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="phn" class="form-label">Phone</label>
+            <input type="tel" class="form-control" name="phn" id="phn" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="mail" class="form-label">E-mail</label>
+            <input type="email" class="form-control" name="mail" id="mail" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">Your email won't be shared with anyone else.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Join Team</button>
+    </form>
+</div>
+<div class="container my-5">
+    <h2>Team Players</h2>
+    {% if allp|length == 0 %}
+    <div class="alert alert-primary d-flex align-items-center mt-3" role="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+            class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
+            aria-label="Warning:">
+            <path
+                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        <div>
+            No players joined.
+        </div>
+    </div>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Date and Time of Joining</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in allp %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{p.name}}</td>
+                <td>{{p.phn}}</td>
+                <td>{{p.mail}}</td>
+                <td>{{p.date_created}}</td>
+                <td><a href="/update/{{p.no}}" type="button" class="btn btn-secondary btn-sm mx-1">Update</button>
+                </td>
+                <td><a href="/delete/{{p.no}}" type="button" class="btn btn-danger btn-sm mx-1">Delete</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+{% endblock body %}
